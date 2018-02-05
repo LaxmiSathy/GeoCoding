@@ -45,7 +45,8 @@ app.get('/api/:source/:destination', function(req,res){
       }
       //console.log('Distance is '+ distance);
       //console.log('Duration is '+ duration);
-      var data = {'status': status, 'distance':distance, 'duration':duration, 'route': routeText};
+      var directionString = 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyCLdlqDqHnZBXq45hyrJ2o5ptRlxU3BhD8&origin='+source+'&destination='+destination;
+      var data = {'status': status, 'directionString': directionString,'distance':distance, 'duration':duration, 'route': routeText};
       //console.log(data);
       res.send(data);
     }
