@@ -1,0 +1,7 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: birdie81-hasura
+  data: null
+  kubeContext: birdie81
+  name: birdie81
