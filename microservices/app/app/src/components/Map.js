@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper} from 'google-maps-react';
+import { colors } from 'material-ui';
 
 const MapStyle ={
     width: '100%',
@@ -13,14 +14,13 @@ export class MapContainer extends Component {
     clicked: this.props.click
   }
   render() {
-    console.log(this.state.clicked);
     let map = (<Map 
       google={this.props.google} 
       zoom={12} 
       style ={MapStyle}  
       initialCenter={{lat: 13.027271,lng: 80.271369}}>
     </Map>)
-    if(this.state.clicked) {
+    if(this.props.click) {
       map=(<iframe
         title="maps"     
         width="60%"
@@ -29,7 +29,7 @@ export class MapContainer extends Component {
         src={this.props.dir} >
       </iframe>)
     }
-    if(this.state.clicked === false) {
+    else if(this.props.click === false) {
       map = (<Map 
         google={this.props.google} 
         zoom={12} 

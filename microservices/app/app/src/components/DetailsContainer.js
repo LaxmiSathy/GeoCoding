@@ -49,7 +49,8 @@ class DetailsContainer extends Component {
             route: null,
             status: null
         });
-        this.props.clicked(this.state.Divpresent,this.state.source,this.state.destination,this.state.dirstring);
+        const val = true;
+        this.props.changeMapBack();
     }
     getsourcevalue = () => {
         var sourceval = document.querySelector("#source").value;
