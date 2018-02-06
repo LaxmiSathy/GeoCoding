@@ -1,0 +1,39 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(224, 247, 250);
+    overflow-x: hidden
+}
+h1 {
+    font-size: 23px;
+    font-family:  'Bitter', serif;
+    color: rgb(0, 0, 0);
+}
+.sourceAndDest {
+    text-align: center;
+}
+tr:nth-child(even) {
+    background-color: rgb(215, 241, 245);
+}
+table {
+    border: '0px solid white';
+}
+.dat {
+    font-size: 17px;
+    color: grey;
+}
+
+/*styling the scroll bar*/
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #80DEEA; 
+
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00ACC1; 
+}
