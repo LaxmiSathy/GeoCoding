@@ -26,3 +26,9 @@ remotes:
         dockerfile: microservices/app/Dockerfile
         path: microservices/app
 
+
+    '{{ cluster.metadata.namespaces.user }}.mysql':
+      mysql:
+        dockerfile: microservices/mysql/Dockerfile
+        path: microservices/mysql
+
