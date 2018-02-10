@@ -108,9 +108,9 @@ router.route("/user_only").get(function (req, res) {
           'username',
           'amount'
         ],
-        "where": {
-            "user_id": {
-                "$eq": "uid"
+        'where': {
+            'user_id': {
+                '$eq': uid
             }
         }
       }
