@@ -1,0 +1,11 @@
+- args:
+    permission:
+      columns:
+      - user_id
+      - username
+      - group_id
+      - amount
+      filter: {}
+    role: user
+    table: sp_user
+  type: create_select_permission
