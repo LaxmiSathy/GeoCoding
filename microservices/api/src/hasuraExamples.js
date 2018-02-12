@@ -199,9 +199,12 @@ function getGroupId(grpname){
     if (error) {
         console.log('Error from select request: ');
         console.log(error)
-        return ('Error from select request: ' + error);
+        res.status(500).json({
+          'error': error,
+          'message': 'Select request failed'
+        });
     }
-    return JSON.parse(body);
+    res.json(JSON.parse(body))
   })
 
 }
