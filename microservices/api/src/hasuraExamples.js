@@ -90,7 +90,7 @@ router.route("/show_users").get(function (req, res) {
 router.route("/user_only").get(function (req, res) {
   console.log("Show User list");
   //Fetch a row from table - sp_user
-  var uid = req.param('id');
+  var uname = req.param('name');
   var selectOptions = {
     url: config.projectConfig.url.data,
     method: 'POST',
@@ -109,8 +109,8 @@ router.route("/user_only").get(function (req, res) {
           'amount'
         ],
         'where': {
-            'user_id': {
-                '$eq': uid
+            'username': {
+                '$eq': uname
             }
         }
       }
