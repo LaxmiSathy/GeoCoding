@@ -171,6 +171,7 @@ router.route("/add_group").get(function (req, res) {
 
 //Function to get the group id from table sp_group
 function getGroupId(grpname){
+  console.log('Inside the getGroupId function' + grpname)
   var selectOptions = {
     url: config.projectConfig.url.data,
     method: 'POST',
@@ -204,6 +205,7 @@ function getGroupId(grpname){
           'message': 'Select request failed'
         });
     }
+    console.log(body);
     return JSON.parse(body)
   })
 
@@ -212,6 +214,7 @@ function getGroupId(grpname){
 //End point to check the group id select query
 router.route("/get_groupid").get(function (req, res) {
   var grpname = req.query.groupname;
+  console.log('calling the getGroupId function');
   var grpid = getGroupId(grpname);
   res.send ('Group ID is   : ' + grpid + 'for Group name '+grpname)
 })
