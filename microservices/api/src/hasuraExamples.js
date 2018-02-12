@@ -204,7 +204,7 @@ function getGroupId(grpname){
           'message': 'Select request failed'
         });
     }
-    res.json(JSON.parse(body))
+    return JSON.parse(body)
   })
 
 }
