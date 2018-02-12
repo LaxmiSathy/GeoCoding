@@ -169,5 +169,48 @@ router.route("/add_group").get(function (req, res) {
   })
 })
 
+//Function to get the group id from table sp_group
+function getGroupId(grpname){
+  var selectOptions = {
+    url: config.projectConfig.url.data,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Hasura-User-Id': 1,
+      'X-Hasura-Role': 'admin'
+    },
+    body: JSON.stringify({
+      'type': 'select',
+      'args': {
+        'table': 'sp_group',
+        'columns': [
+          'group_id'
+        ],
+        'where': {
+            'groupname': {
+                '$eq': grpname
+            }
+        }
+      }
+    })
+  }
+
+  request(selectOptions, function(error, response, body) {
+    if (error) {
+        console.log('Error from select request: ');
+        console.log(error)
+        return ('Error from select request: ' + error);
+    }
+    return JSON.parse(body);
+  })
+
+}
+
+//End point to check the group id select query
+router.route("/get_groupid").get(function (req, res) {
+  var grpname = req.query.groupname;
+  var grpid = getGroupId(grpname);
+  res.send ('Group ID is   : ' + grpid + 'for Group name '+grpname)
+})
 
 module.exports = router;
