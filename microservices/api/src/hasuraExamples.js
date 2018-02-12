@@ -133,8 +133,8 @@ router.route("/user_only").get(function (req, res) {
 router.route("/add_group").get(function (req, res) {
   console.log("Group Add");
   //Fetch a row from table - sp_user
-  var grpname = req.param('groupname');
-  
+  var grpname = req.query.groupname;
+  var bill = req.param('bill');
   var selectOptions = {
     url: config.projectConfig.url.data,
     method: 'POST',
@@ -149,8 +149,8 @@ router.route("/add_group").get(function (req, res) {
         'table': 'sp_group',
         "objects": [
             {
-                "bill": "2000",
-                "groupname": "DinnerSubway"
+                "bill": bill,
+                "groupname": grpname
             }
         ]       
       }
