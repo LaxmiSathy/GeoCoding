@@ -129,7 +129,45 @@ router.route("/user_only").get(function (req, res) {
   })
 })
 
-
+// Add Group end point
+router.route("/add_group").get(function (req, res) {
+  console.log("Group Add");
+  //Fetch a row from table - sp_user
+  var grpname = req.param('groupname');
+  
+  var selectOptions = {
+    url: config.projectConfig.url.data,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Hasura-User-Id': 1,
+      'X-Hasura-Role': 'admin'
+    },
+    body: JSON.stringify({
+      'type': 'insert',
+      'args': {
+        'table': 'sp_group',
+        "objects": [
+            {
+                "bill": "2000",
+                "groupname": "DinnerSubway"
+            }
+        ]       
+      }
+    })
+  }
+  request(selectOptions, function(error, response, body) {
+    if (error) {
+        console.log('Error from select request: ');
+        console.log(error)
+        res.status(500).json({
+          'error': error,
+          'message': 'Select request failed'
+        });
+    }
+    res.json(JSON.parse(body))
+  })
+})
 
 
 module.exports = router;
