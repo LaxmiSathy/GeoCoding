@@ -195,7 +195,7 @@ router.route("/add_group").get(function (req, res) {
         rp(option2)
         .then (function(response){
           console.log(response);
-          console.log(response.group_id);
+          console.log(response[0].group_id);
 
         })
         .catch(function(error){
