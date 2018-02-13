@@ -137,7 +137,7 @@ router.route("/add_group").get(function (req, res) {
   //Get params group name, bill amount, user name array
   var usernames = req.query.uname;
   var grpname = req.query.groupname;
-  var bill = req.param('bill');
+  var bill = req.query.bill;
 
   //Post request for insert query - table sp_group
   var option1 = {
@@ -166,8 +166,45 @@ router.route("/add_group").get(function (req, res) {
   rp(option1)
     .then(function(response){
       console.log(response);
-      res.send(response);
+      //res.send(response);
+      //option2 - select group id  from sp_group
+        var option2 = {
+          url: config.projectConfig.url.data,
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Hasura-User-Id': 1,
+            'X-Hasura-Role': 'admin'
+          },
+          body: JSON.stringify({
+            'type': 'select',
+            'args': {
+              'table': 'sp_group',
+              'columns': [
+                'group_id'
+              ],
+              'where': {
+                  'groupname': {
+                      '$eq': grpname
+                  }
+              }
+            }
+          })
+        }
+        //method call for option2 rp
+        rp(option2)
+        .then (function(response){
+          console.log(response);
+          console.log(response.group_id);
 
+        })
+        .catch(function(error){
+
+        });
+        // End of option2 then catch function
+
+
+      //end of option1 then function
     })
     .catch(function(error){
       console.log(error);
