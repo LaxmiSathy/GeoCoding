@@ -138,6 +138,7 @@ router.route("/add_group").get(function (req, res) {
   var usernames = req.query.uname;
   var grpname = req.query.groupname;
   var bill = req.query.bill;
+  var amount = bill / usernames.length;
 
   //Post request for insert query - table sp_group
   var option1 = {
@@ -195,7 +196,13 @@ router.route("/add_group").get(function (req, res) {
         rp(option2)
         .then (function(response){
           console.log(response);
+          console.log(response[0]);
           console.log(response[0].group_id);
+          console.log(amount);
+          var o = JSON.parse(response);
+          console.log(o[0]);
+          console.log(o[0].group_id);
+          console.log(JSON.parse(response)[0].group_id)
 
         })
         .catch(function(error){
