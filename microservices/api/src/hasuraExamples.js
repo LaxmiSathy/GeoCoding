@@ -195,14 +195,58 @@ router.route("/add_group").get(function (req, res) {
         //method call for option2 rp
         rp(option2)
         .then (function(response){
-          console.log(response);
-          console.log(response[0]);
-          console.log(response[0].group_id);
           console.log(amount);
-          var o = JSON.parse(response);
-          console.log(o[0]);
-          console.log(o[0].group_id);
-          console.log(JSON.parse(response)[0].group_id)
+          var grpid = JSON.parse(response)[0].group_id;
+          console.log(grpid);
+          //for loop of usernames
+          for(var i=0; i<usernames.length;i++) {
+            //option3 - select amount from sp_user for a username
+              var option3 = {
+                url: config.projectConfig.url.data,
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-Hasura-User-Id': 1,
+                  'X-Hasura-Role': 'admin'
+                },
+                body: JSON.stringify({
+                  'type': 'select',
+                  'args': {
+                    'table': 'sp_user',
+                    'columns': [
+                      'amount'
+                    ],
+                    'where': {
+                        'username': {
+                            '$eq': usernames[i]
+                        }
+                    }
+                  }
+                })
+              }
+
+              //rp call for option3 - select amount from sp_user
+              rp(option3)
+              .then(function(response){
+                //get the amount for the user
+                var uamt = JSON.parse(response)[0].amount;
+                uamt += amount;
+                console.log('amount for  '+ usernames[i] + '     '+ uamt);
+
+              })
+              .catch(function(error){
+                console.log(error);
+
+              });
+
+
+
+
+            //update amount, group_id in sp_user
+
+
+          }
+
 
         })
         .catch(function(error){
