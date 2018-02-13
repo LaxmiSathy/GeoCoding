@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var config = require('./config');
 var request = require('request');
+var rp = require('request-promise');
 
 router.route("/").get(function (req, res) {
+  console.log('am happy to be here')
   res.send("Hello world from Laxmi Sathy. Geocoding API Project")
 })
 
@@ -86,7 +88,7 @@ router.route("/show_users").get(function (req, res) {
   })
 })
 
-//select users based on user id
+//select users based on username
 router.route("/user_only").get(function (req, res) {
   console.log("Show User list");
   //Fetch a row from table - sp_user
@@ -132,10 +134,13 @@ router.route("/user_only").get(function (req, res) {
 // Add Group end point
 router.route("/add_group").get(function (req, res) {
   console.log("Group Add");
-  //Fetch a row from table - sp_user
+  //Get params group name, bill amount, user name array
+  var usernames = req.query.uname;
   var grpname = req.query.groupname;
   var bill = req.param('bill');
-  var selectOptions = {
+
+  //Post request for insert query - table sp_group
+  var option1 = {
     url: config.projectConfig.url.data,
     method: 'POST',
     headers: {
@@ -156,67 +161,23 @@ router.route("/add_group").get(function (req, res) {
       }
     })
   }
-  request(selectOptions, function(error, response, body) {
-    if (error) {
-        console.log('Error from select request: ');
-        console.log(error)
-        res.status(500).json({
-          'error': error,
-          'message': 'Select request failed'
-        });
-    }
-    res.json(JSON.parse(body))
-  })
-})
 
-//Function to get the group id from table sp_group
-function getGroupId(grpname){
-  console.log('Inside the getGroupId function' + grpname)
-  var selectOptions = {
-    url: config.projectConfig.url.data,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Hasura-User-Id': 1,
-      'X-Hasura-Role': 'admin'
-    },
-    body: JSON.stringify({
-      'type': 'select',
-      'args': {
-        'table': 'sp_group',
-        'columns': [
-          'group_id'
-        ],
-        'where': {
-            'groupname': {
-                '$eq': grpname
-            }
-        }
-      }
+  // methods on request call object - option1
+  rp(option1)
+    .then(function(response){
+      console.log(response);
+      res.send(response);
+
     })
-  }
-
-  request(selectOptions, function(error, response, body) {
-    if (error) {
-        console.log('Error from select request: ');
-        console.log(error)
-        res.status(500).json({
-          'error': error,
-          'message': 'Select request failed'
-        });
-    }
-    console.log(body);
-    return JSON.parse(body)
-  })
-
-}
-
-//End point to check the group id select query
-router.route("/get_groupid").get(function (req, res) {
-  var grpname = req.query.groupname;
-  console.log('calling the getGroupId function');
-  var grpid = getGroupId(grpname);
-  res.send ('Group ID is   : ' + grpid + 'for Group name '+grpname)
+    .catch(function(error){
+      console.log(error);
+      res.send(error);
+    });
+  
 })
+
+
+
+
 
 module.exports = router;
