@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import ButtonElement from './SubmitSearch';
 import Card,{CardContent} from 'material-ui/Card';
 import '../main.css';
+import blue from 'material-ui/colors/blue';
 
 const PaperStyle = {
     width: '40%',
@@ -15,7 +16,8 @@ const PaperStyle = {
 }
 const DetailsDiv = {
     width: '35%',
-    marginLeft: '64%',
+    marginLeft: '2%',
+    marginTop: '2%',
     border: '1px solid white',
     borderRadius: '3px',
     position: 'absolute',
@@ -52,6 +54,16 @@ const load = {
     zIndex: '9999',
     display: 'inline',
 }
+const endNodes = {
+    backgroundColor: '#f1f1f1',
+    fontSize: '23px',
+    fontWeight: '400'
+}
+const nodeStyle ={
+    height: '27px',
+    width: '18px',
+    padding: '5px'
+}
 const DirectionsDiv = (props) => {
     if(props.status===500) {
         return(
@@ -72,7 +84,15 @@ const DirectionsDiv = (props) => {
                         <Card style={Directions}  elevation={4}>
                             <CardContent>
                                 <h1> Directions : <br /> </h1>
+                                <div style={endNodes}>
+                                    <img style={nodeStyle} src="https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1" alt="source" />
+                                    <span>  {props.source}</span> 
+                                </div>
                                 {props.directions}
+                                <div style={endNodes}>
+                                    <img style={nodeStyle} src="https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1" alt="destination" />
+                                    <span>  {props.destination}</span>
+                                </div>
                             </CardContent>
                         </Card>
                         <ButtonElement click={props.click} label="Go back" />
@@ -86,7 +106,7 @@ const DirectionsDiv = (props) => {
                 <CardContent style={{padding: '0px'}}>
                     <h1>loading</h1>
                     <img src={require('./loading')} alt="loading" height="30px" width="30px" style={load} />
-                    <p style={{color:'grey',fontSize:'12px'}}>if it takes to much time you might have entered an invalid address. please hit go back </p>
+                    <p style={{color:'grey',fontSize:'12px'}}>If it takes longer time to load,  please hit go back. </p>
                     <ButtonElement click={props.click} label="Go back" />
                 </CardContent>
             </Card> 
