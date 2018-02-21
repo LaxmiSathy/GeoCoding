@@ -25,7 +25,7 @@ app.get('/get_direction', function(req,res){
   var source = req.query.source;
   var destination = req.query.destination;
   var mode = req.query.mode;
-  console.log(process.env.GOOGLE_MAPS_API);
+  
   axios.get('https://maps.googleapis.com/maps/api/directions/json', {
         params: {
           origin: source,
@@ -41,7 +41,7 @@ app.get('/get_direction', function(req,res){
     
     if(status == 'OK'){
       var dataObj = {};
-      var result = 'Result Output';
+      var result = 'ResultOutput';
       dataObj[result] =[];
 
       for (var j=0; j<response.data.routes.length; j++) {
