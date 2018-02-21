@@ -24,14 +24,15 @@ app.use('/', hasuraExamplesRouter);
 app.get('/get_direction', function(req,res){
   var source = req.query.source;
   var destination = req.query.destination;
-  var mode = req.query.mode
+  var mode = req.query.mode;
+  console.log(process.env.GOOGLE_MAPS_API);
   axios.get('https://maps.googleapis.com/maps/api/directions/json', {
         params: {
           origin: source,
           destination: destination,
           alternatives: 'true',
           mode: mode,
-          key: 'AIzaSyCLdlqDqHnZBXq45hyrJ2o5ptRlxU3BhD8'
+          key: process.env.GOOGLE_MAPS_API
         }
       })
   .then(function(response){
@@ -53,7 +54,7 @@ app.get('/get_direction', function(req,res){
           }
           //console.log('Distance is '+ distance);
           //console.log('Duration is '+ duration);
-          var directionString = 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyCLdlqDqHnZBXq45hyrJ2o5ptRlxU3BhD8&origin='+source+'&destination='+destination;
+          var directionString = 'https://www.google.com/maps/embed/v1/directions?key='+process.env.GOOGLE_MAPS_API+'&origin='+source+'&destination='+destination;
           var data = {'status': status, 'directionString': directionString,'distance':distance, 'duration':duration, 'route': routeText};
           //console.log(data);
           dataObj[result].push(data);
