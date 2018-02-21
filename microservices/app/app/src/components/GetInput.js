@@ -9,7 +9,7 @@ const PaperStyle = {
     position: 'absolute',
     borderRadius: '5px',
     top: 40,
-    left: 40
+    left: 40,
 }
 const GetInput = (props) => {
     return(

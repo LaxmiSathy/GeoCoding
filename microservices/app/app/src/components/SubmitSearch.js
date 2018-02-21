@@ -5,7 +5,7 @@ const ButtonStyle = {
    backgroundColor: '#00ACC1',
    color: 'white',
    fontWeight: 'bold',
-   borderRadius: '4px',
+   borderRadius: '4px'
 }
 const ButtonElement = (props) => {
     return (

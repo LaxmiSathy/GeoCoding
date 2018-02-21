@@ -5,7 +5,7 @@ import { colors } from 'material-ui';
 const MapStyle ={
     width: '100%',
     height: '100%',
-    margin: '0px',
+    margin: '0px'
 }
 export class MapContainer extends Component {
   state = {

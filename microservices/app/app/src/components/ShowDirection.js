@@ -12,7 +12,7 @@ const PaperStyle = {
     float: 'left',
     top: 0,
     position: 'absolute',
-    backgroundColor: '#E0F7FA',
+    backgroundColor: '#E0F7FA'
 }
 const DetailsDiv = {
     width: '35%',

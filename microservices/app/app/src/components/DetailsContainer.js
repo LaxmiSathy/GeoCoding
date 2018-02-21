@@ -11,7 +11,7 @@ class DetailsContainer extends Component {
         distance: null,
         duration: null,
         route: null,
-        status: null
+        status: null,
     }
     getDirectionsHandler = () => {
         const presentState = this.state.Divpresent;
