@@ -21,13 +21,16 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', hasuraExamplesRouter);
 
-app.get('/api/:source/:destination', function(req,res){
-  var source = req.params.source;
-  var destination = req.params.destination;
+app.get('/get_direction', function(req,res){
+  var source = req.query.source;
+  var destination = req.query.destination;
+  var mode = req.query.mode
   axios.get('https://maps.googleapis.com/maps/api/directions/json', {
         params: {
           origin: source,
           destination: destination,
+          alternatives: 'true',
+          mode: mode,
           key: 'AIzaSyCLdlqDqHnZBXq45hyrJ2o5ptRlxU3BhD8'
         }
       })
@@ -36,19 +39,28 @@ app.get('/api/:source/:destination', function(req,res){
     var status = response.data.status;
     
     if(status == 'OK'){
-      var duration = response.data.routes[0].legs[0].duration.text;
-      var distance = response.data.routes[0].legs[0].distance.text;
-      var routeText = '';
-      for (var i=0; i<response.data.routes[0].legs[0].steps.length; i++){
-        routeText += response.data.routes[0].legs[0].steps[i].html_instructions+'<br>';
+      var dataObj = {};
+      var result = 'Result Output';
+      dataObj[result] =[];
 
+      for (var j=0; j<response.data.routes.length; j++) {
+          var duration = response.data.routes[j].legs[0].duration.text;
+          var distance = response.data.routes[j].legs[0].distance.text;
+          var routeText = '';
+          for (var i=0; i<response.data.routes[j].legs[0].steps.length; i++){
+            routeText += response.data.routes[j].legs[0].steps[i].html_instructions+'<br>';
+
+          }
+          //console.log('Distance is '+ distance);
+          //console.log('Duration is '+ duration);
+          var directionString = 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyCLdlqDqHnZBXq45hyrJ2o5ptRlxU3BhD8&origin='+source+'&destination='+destination;
+          var data = {'status': status, 'directionString': directionString,'distance':distance, 'duration':duration, 'route': routeText};
+          //console.log(data);
+          dataObj[result].push(data);
+          
       }
-      //console.log('Distance is '+ distance);
-      //console.log('Duration is '+ duration);
-      var directionString = 'https://www.google.com/maps/embed/v1/directions?key=AIzaSyCLdlqDqHnZBXq45hyrJ2o5ptRlxU3BhD8&origin='+source+'&destination='+destination;
-      var data = {'status': status, 'directionString': directionString,'distance':distance, 'duration':duration, 'route': routeText};
-      //console.log(data);
-      res.send(data);
+      res.send(dataObj);
+      
     }
     else if(status == 'ZERO_RESULTS'){
       var err ={'status': status, 'message': 'No route between source and destination'};
