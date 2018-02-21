@@ -21,7 +21,6 @@ class DetailsContainer extends Component {
         axios.get('https://api.birdie81.hasura-app.io/api/'+this.state.source+'/'+this.state.destination)
         .then(response  =>  {   
             this.setState({
-                source: "chennai",
                 distance: response.data.distance,
                 duration: response.data.duration,
                 route: response.data.route,
@@ -29,7 +28,7 @@ class DetailsContainer extends Component {
                 status: 500
             });  
             this.props.clicked(this.state.Divpresent,this.state.source,this.state.destination,this.state.dirstring);
-            
+            console.log(response.data)
         })
         .catch(function (error) {
             console.log('error');
