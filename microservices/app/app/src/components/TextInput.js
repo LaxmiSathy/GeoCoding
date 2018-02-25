@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
+import { MenuItem } from 'material-ui/Menu';
+import Select from 'material-ui/Select';
+import Input from 'material-ui/Input';
 
 const srctextStyle = {
     width: '90%',
@@ -12,14 +15,58 @@ const desttextStyle = {
 const inputContainer = {
     borderRadius: '5px'
 }
-
-const Text = (props) => {
-    return (
-        <div style={inputContainer}>
-            <TextField id="source" label="   Source"  style={srctextStyle} onChange={props.source} />
-            <TextField id="destination" label="   Destination"  style={desttextStyle} onChange={props.destination} />
-        </div>
-    );
+const modeStyle ={
+    width: '45%',
+    marginLeft: '10%'
 }
+const latlongStyle ={
+    width: '40%',
+    marginLeft: '6%'
+}
+class Text extends Component  {
+    state = {
+        mode: ''
+    }
+    /*  handleModeChange = (event) => {
+        this.setState({ mode: event.target.value });
+        this.props.mode(this.state.mode);
+        
+    }; */
+    render() {
+        let texts = null;
+        if(this.props.userInputValue === 1) {
+            texts = (
+                <div>
+                <TextField id="sourceLat" label="    Src Lat" type="number"  style={latlongStyle}  onChange={() =>{ this.props.latlong(1) }} />
+                <TextField id="sourceLong" label="    Src Long" type="number"  style={latlongStyle}  onChange={() =>{ this.props.latlong(2) }} />
+                <TextField id="destinationLat" label="    Dest Lat" type="number"  style={latlongStyle}  onChange={() =>{ this.props.latlong(3) }} /> 
+                <TextField id="destinationLong" label="       Dest Long" type="number"  style={latlongStyle}  onChange={() =>{ this.props.latlong(4) }} />
+                </div>
+            );
+        }
+        else {
+            texts = (
+                <div>
+                <TextField id="source" label="    Source"   style={srctextStyle}  onChange={this.props.source} /> 
+                <TextField id="destination" label="     Destination"  style={desttextStyle}  onChange={this.props.destination} />
+                </div>
+            );
+        }
+        return (
+            <div style={inputContainer}>
+                {texts}
+                <br />
+                <span style={{marginLeft:'4%',color: 'grey'}}>Mode:</span> 
+                <Select id="mode" disabled={true} style={modeStyle} default="driving" input={<Input name="mode" id="mode-helper" />} value="driving" onChange={this.handleModeChange}>
+                    <MenuItem value="Walking">Walking</MenuItem>
+                    <MenuItem value="cycling">Cycling</MenuItem>
+                    <MenuItem value="driving">Driving</MenuItem>
+                    <MenuItem value="transit">Transit</MenuItem>
+                </Select>
+            </div>
+        );
+    }
+}
+
 
 export default Text;

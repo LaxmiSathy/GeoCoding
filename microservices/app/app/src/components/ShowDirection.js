@@ -3,7 +3,6 @@ import Paper from 'material-ui/Paper';
 import ButtonElement from './SubmitSearch';
 import Card,{CardContent} from 'material-ui/Card';
 import '../main.css';
-import blue from 'material-ui/colors/blue';
 
 const PaperStyle = {
     width: '40%',

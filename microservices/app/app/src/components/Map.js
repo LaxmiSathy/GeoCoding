@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, GoogleApiWrapper} from 'google-maps-react';
-import { colors } from 'material-ui';
 
 const MapStyle ={
     width: '100%',
@@ -24,8 +23,8 @@ export class MapContainer extends Component {
       map=(<iframe
         title="maps"     
         width="60%"
-        height="680px"
-        style={{border: 0,marginLeft:'40%'}}
+        height="659vh"
+        style={{border: 0,marginLeft:'40%',marginBottom: '0px',paddingBottom: '0px'}}
         src={this.props.dir} >
       </iframe>)
     }
