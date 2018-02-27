@@ -23,9 +23,9 @@ items:
           imagePullPolicy: IfNotPresent
           name: app
           env:
-            - name: GOOGLE_MAPS_API
+          - name: GOOGLE_MAPS_API
             valueFrom:
-            secretKeyRef:
+              secretKeyRef:
                 name: hasura-secrets
                 key: google.maps.api
           ports:
