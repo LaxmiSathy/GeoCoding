@@ -53,8 +53,8 @@ app.get('/directions', function(req,res){
           var routeResult = 'route';
           routeText[routeResult]=[];
 
-          for (var i=0; i<response.data.routes[0].legs[0].steps.length; i++){
-            routeText[routeResult].push(response.data.routes[0].legs[0].steps[i].html_instructions);
+          for (var i=0; i<response.data.routes[j].legs[0].steps.length; i++){
+            routeText[routeResult].push(response.data.routes[j].legs[0].steps[i].html_instructions);
           }
           
           var directionString = 'https://www.google.com/maps/embed/v1/directions?key='+process.env.GOOGLE_MAPS_API+'&origin='+source+'&destination='+destination;
