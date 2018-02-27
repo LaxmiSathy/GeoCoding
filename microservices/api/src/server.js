@@ -46,16 +46,18 @@ app.get('/get_direction', function(req,res){
 
       for (var j=0; j<response.data.routes.length; j++) {
           var duration = response.data.routes[j].legs[0].duration.text;
+          var durationFormat = 'P'+duration.replace(/da\w+/,'D').replace(/hou\w+/,'H').replace('mins','M').replace(/\s/g,'');
           var distance = response.data.routes[j].legs[0].distance.text;
-          var routeText = '';
-          for (var i=0; i<response.data.routes[j].legs[0].steps.length; i++){
-            routeText += response.data.routes[j].legs[0].steps[i].html_instructions+'<br>';
+          var routeText = {};
+          var routeResult = 'route';
+          routeText[routeResult]=[];
 
+          for (var i=0; i<response.data.routes[j].legs[0].steps.length; i++){
+            routeText[routeResult].push(response.data.routes[0].legs[0].steps[i].html_instructions);
           }
-          //console.log('Distance is '+ distance);
-          //console.log('Duration is '+ duration);
+          
           var directionString = 'https://www.google.com/maps/embed/v1/directions?key='+process.env.GOOGLE_MAPS_API+'&origin='+source+'&destination='+destination;
-          var data = {'status': status, 'directionString': directionString,'distance':distance, 'duration':duration, 'route': routeText};
+          var data = {'status': status, 'directionString': directionString,'distance':distance, 'duration':duration, 'durationFormat':durationFormat, 'route': routeText};
           //console.log(data);
           dataObj[result].push(data);
           
