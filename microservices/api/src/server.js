@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({
 app.use('/', hasuraExamplesRouter);
 
 app.get('/directions', function(req,res){
+  
   var source = req.query.source;
   var destination = req.query.destination;
   var mode = req.query.mode;
