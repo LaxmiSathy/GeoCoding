@@ -15,6 +15,12 @@ h1 {
     font-size: 17px;
     color: grey;
 }
+tr:nth-child(even) {
+    background-color: rgb(215, 241, 245);
+}
+tr:first-child,tr:last-child {
+    background-color: #F1F1F1;
+}
 
 /*styling the scroll bar*/
 

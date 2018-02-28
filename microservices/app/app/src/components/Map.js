@@ -6,7 +6,6 @@ const MapStyle ={
     height: '100%',
     margin: '0px'
 }
-
 export class MapContainer extends Component {
   state = {
     source: this.props.src,

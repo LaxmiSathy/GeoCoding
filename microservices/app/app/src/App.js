@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import MapContainer from './components/Map';
 import DetailsContainer from './components/DetailsContainer';
 
-
 export default class Mainmap extends Component {
 	state = {
 		source:'',

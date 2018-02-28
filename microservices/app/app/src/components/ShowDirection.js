@@ -103,7 +103,7 @@ const DirectionsDiv = (props) => {
         }
         else {
             return(
-                <ErrorHand errormsg="invalid input" click={props.click} />
+                <ErrorHand errormsg="invalid input" click={props.tryagain} />
             );
         }
     }
@@ -114,7 +114,7 @@ const DirectionsDiv = (props) => {
                     <h1>loading</h1>
                     <img src={require('./loading')} alt="loading" height="30px" width="30px" style={load} />
                     <p style={{color:'grey',fontSize:'12px'}}>If it takes longer time to load,  please hit go back. </p>
-                    <ButtonElement click={props.click} label="Go back" />
+                    <ButtonElement click={props.tryagain} label="Go back" />
                 </CardContent>
             </Card> 
         )

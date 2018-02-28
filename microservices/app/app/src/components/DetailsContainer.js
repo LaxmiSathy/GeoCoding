@@ -59,6 +59,22 @@ class DetailsContainer extends Component {
         });
         this.props.changeMapBack();
     }
+    tryAgainHandler = () => {
+        const presentState = this.state.Divpresent;
+        this.setState({
+            Divpresent: !presentState
+        });
+        this.setState({
+            source: '',
+            destination: '',
+            Divpresent: false,
+            distance: null,
+            duration: null,
+            route: [],
+            status: null,
+            statusMessage: null
+        });
+    }
     getsourcevalue = () => {
         var sourceval = document.querySelector("#source").value;
         this.setState({
@@ -128,7 +144,7 @@ class DetailsContainer extends Component {
         );
         if(this.state.Divpresent) {
             if(this.state.source === ''||(this.state.destination === '')) {
-                input = (<ErrorHand errormsg="no input"  click={this.goBackHandler} />);
+                input = (<ErrorHand errormsg="no input"  click={this.tryAgainHandler} />);
             }
             else {
                 input = (
@@ -139,6 +155,7 @@ class DetailsContainer extends Component {
                         duration={this.state.duration} 
                         directions={direction}
                         click={this.goBackHandler} 
+                        tryagain={this.tryAgainHandler}
                         status={this.state.status}
                         statusMessage={this.state.statusMessage}
                     />

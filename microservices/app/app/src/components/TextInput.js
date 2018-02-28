@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
-import Input from 'material-ui/Input';
 
 const srctextStyle = {
     width: '90%',
@@ -64,6 +63,7 @@ class Text extends Component  {
                 <br />
                 <span style={{marginLeft:'4%',color: 'grey'}}>Mode:</span> 
                 <Select
+                    style={modeStyle}
                     value={this.state.mode}
                     onChange={this.handleChange('mode')}
                     inputProps={{
