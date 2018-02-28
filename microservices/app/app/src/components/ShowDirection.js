@@ -111,8 +111,9 @@ const DirectionsDiv = (props) => {
                 </CardContent>
             </Card> 
         )
+        
     }
-    else {
+    else if(props.statusMessage===null) {
         return(
             <ErrorHand errormsg="invalid input" click={props.tryagain} />
         );

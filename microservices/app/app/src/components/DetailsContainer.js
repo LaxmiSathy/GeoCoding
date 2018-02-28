@@ -37,11 +37,7 @@ class DetailsContainer extends Component {
                 this.props.clicked(this.state.Divpresent,this.state.source,this.state.destination,this.state.dirstring);
                 console.log(this.state.dirstring);
             }
-            else {
-                this.setState({
-                    status: 404
-                })
-            }
+            console.log(response.status)
         })
         .catch(function (error) {
             console.log(error)

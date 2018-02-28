@@ -25,8 +25,7 @@ export class MapContainer extends Component {
       <iframe
         title="maps"     
         width="60%"
-        height="658vh"
-        style={{border: 0,marginLeft:'40%',marginBottom: '0px',paddingBottom: '0px'}}
+        style={{border: 0,marginLeft:'40%',marginBottom: '0px',paddingBottom: '0px',height: '100vh'}}
         src={this.props.dir}
         allowFullScreen 
       >
