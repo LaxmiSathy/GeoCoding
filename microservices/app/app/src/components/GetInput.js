@@ -14,7 +14,6 @@ const PaperStyle = {
 }
 const SelectionButtons = {
     marginTop: '1%',
-
 }
 const GetInput = (props) => {
     return(
@@ -33,4 +32,5 @@ const GetInput = (props) => {
     );
 }
 
-export default GetInput; 
+  
+export default  GetInput; 

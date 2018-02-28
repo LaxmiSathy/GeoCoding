@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import GetInput from  './GetInput';
 import DirectionsDiv from './ShowDirection';
-import  NoInput from './NoInput';
+import  ErrorHand from './ErrorHandler';
 import axios from 'axios';
 
-
-
-let srcLat,srcLong,destLat,destLong;
+let srcLat,srcLong,destLat,destLong,mode;
 class DetailsContainer extends Component {
     state = {
         source: "",
@@ -14,7 +12,8 @@ class DetailsContainer extends Component {
         Divpresent: false,
         distance: null,
         duration: null,
-        route: null,
+        route: [],
+        mode: "",
         status: null,
         statusMessage: null,
         value: 0
@@ -24,7 +23,8 @@ class DetailsContainer extends Component {
         this.setState({
             Divpresent: !presentState
         });
-        axios.get('https://api.birdie81.hasura-app.io/get_direction?source='+this.state.source+'&destination='+this.state.destination+'&mode=walking')
+        let stat;
+        axios.get('https://api.birdie81.hasura-app.io/directions?source='+this.state.source+'&destination='+this.state.destination+'&mode='+mode)
         .then(response  =>  {   
             this.setState({
                 distance: response.data.ResultOutput[0].distance,
@@ -35,11 +35,12 @@ class DetailsContainer extends Component {
                 statusMessage: response.data.ResultOutput[0].status
             });  
             this.props.clicked(this.state.Divpresent,this.state.source,this.state.destination,this.state.dirstring);
-            console.log(response.data);
         })
         .catch(function (error) {
-            console.log('error');
+            console.log("Not the input we expected !!");
+            stat=200;
         });
+        this.setState({status: stat})
     }
     goBackHandler = () => {
         const presentState = this.state.Divpresent;
@@ -52,9 +53,9 @@ class DetailsContainer extends Component {
             Divpresent: false,
             distance: null,
             duration: null,
-            route: null,
+            route: [],
             status: null,
-            mode: "none"
+            statusMessage: null
         });
         this.props.changeMapBack();
     }
@@ -91,38 +92,71 @@ class DetailsContainer extends Component {
             source: srcLat+","+srcLong,
             destination: destLat+","+destLong
         });
-        console.log(this.state.destination)
     }
-    mode = () => {
+    mode = (modeval) => {
+        mode = modeval;
+        console.log(mode);
     }
     handleChange = (event, value) => {
         this.setState({ value });
     };
     render() {  
-        const direction = (<div> <p dangerouslySetInnerHTML={{__html: this.state.route}}></p> <br></br></div>);
+        const direction = (
+            <div> 
+                <table>
+                    {this.state.route.map(a => {
+                        return(
+                            <tr>
+                                <td dangerouslySetInnerHTML={{__html:a}}></td>
+                            </tr>
+                        );
+                    })}
+                </table>
+                <br/>
+            </div>
+        );
         let input = (
-            <GetInput latlong={this.latlong} handleChange={this.handleChange} value={this.state.value} mode={this.mode} sourceValue={this.getsourcevalue} destinationvalue={this.getdestinationvalue} click={this.getDirectionsHandler} />
+            <GetInput 
+                latlong={this.latlong} 
+                handleChange={this.handleChange} 
+                value={this.state.value} 
+                mode={this.mode} 
+                sourceValue={this.getsourcevalue} 
+                destinationvalue={this.getdestinationvalue} 
+                click={this.getDirectionsHandler} 
+            />
         );
         if(this.state.Divpresent) {
             if(this.state.source === ''||(this.state.destination === '')) {
-                input = (<NoInput click={this.goBackHandler} />);
+                input = (<ErrorHand errormsg="no input"  click={this.goBackHandler} />);
             }
             else {
-                input = (<DirectionsDiv 
-                    source={this.state.source} 
-                    destination={this.state.destination}  
-                    distance={this.state.distance} 
-                    duration={this.state.duration} 
-                    directions={direction}
-                    click={this.goBackHandler} 
-                    status={this.state.status}
-                    statusMessage={this.state.statusMessage}
-                />);
+                input = (
+                    <DirectionsDiv 
+                        source={this.state.source} 
+                        destination={this.state.destination}  
+                        distance={this.state.distance} 
+                        duration={this.state.duration} 
+                        directions={direction}
+                        click={this.goBackHandler} 
+                        status={this.state.status}
+                        statusMessage={this.state.statusMessage}
+                    />
+                );
             }
         }
         else {
-            input = (<GetInput latlong={this.latlong} handleChange={this.handleChange} value={this.state.value}  mode={this.mode} sourceValue={this.getsourcevalue} destinationValue={this.getdestinationvalue} click={this.getDirectionsHandler} />);
-            
+            input = (
+                <GetInput 
+                    latlong={this.latlong} 
+                    handleChange={this.handleChange} 
+                    value={this.state.value}  
+                    mode={this.mode} 
+                    sourceValue={this.getsourcevalue} 
+                    destinationValue={this.getdestinationvalue} 
+                    click={this.getDirectionsHandler} 
+                />
+            );
         }
         
         return (

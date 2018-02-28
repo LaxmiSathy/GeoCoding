@@ -17,21 +17,26 @@ const inputContainer = {
 }
 const modeStyle ={
     width: '45%',
-    marginLeft: '10%'
+    marginLeft: '5%',
+    backgroundColor: 'white',
+    border: 'none'
 }
 const latlongStyle ={
     width: '40%',
     marginLeft: '6%'
 }
+
 class Text extends Component  {
     state = {
-        mode: ''
+        mode: 'driving',
     }
-    /*  handleModeChange = (event) => {
+    handleChange = name => event => {
         this.setState({ mode: event.target.value });
-        this.props.mode(this.state.mode);
-        
-    }; */
+        this.props.mode(event.target.value);
+    };
+    getMode = (a) => {
+        this.setState({mode: a});
+    }
     render() {
         let texts = null;
         if(this.props.userInputValue === 1) {
@@ -49,6 +54,7 @@ class Text extends Component  {
                 <div>
                 <TextField id="source" label="    Source"   style={srctextStyle}  onChange={this.props.source} /> 
                 <TextField id="destination" label="     Destination"  style={desttextStyle}  onChange={this.props.destination} />
+                <br />
                 </div>
             );
         }
@@ -57,14 +63,21 @@ class Text extends Component  {
                 {texts}
                 <br />
                 <span style={{marginLeft:'4%',color: 'grey'}}>Mode:</span> 
-                <Select id="mode" disabled={true} style={modeStyle} default="driving" input={<Input name="mode" id="mode-helper" />} value="driving" onChange={this.handleModeChange}>
-                    <MenuItem value="Walking">Walking</MenuItem>
-                    <MenuItem value="cycling">Cycling</MenuItem>
-                    <MenuItem value="driving">Driving</MenuItem>
+                <Select
+                    value={this.state.mode}
+                    onChange={this.handleChange('mode')}
+                    inputProps={{
+                    id: 'age-native-simple',
+                    }}
+                >
+                    <MenuItem value="driving" selected>Driving</MenuItem>
+                    <MenuItem value="walking">Walking</MenuItem>
                     <MenuItem value="transit">Transit</MenuItem>
                 </Select>
+                
             </div>
         );
+        
     }
 }
 
