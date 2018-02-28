@@ -21,12 +21,15 @@ export class MapContainer extends Component {
       initialCenter={{lat: 13.027271,lng: 80.271369}}>
     </Map>)
     if(this.props.click) {
-      map=(<iframe
+      map=(
+      <iframe
         title="maps"     
         width="60%"
-        height="659vh"
+        height="658vh"
         style={{border: 0,marginLeft:'40%',marginBottom: '0px',paddingBottom: '0px'}}
-        src={this.props.dir} >
+        src={this.props.dir}
+        allowFullScreen 
+      >
       </iframe>)
     }
     else if(this.props.click === false) {
@@ -46,5 +49,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: (process.env.UI_GMAPS_KEY)
+  apiKey: (process.env.GOOGLE_MAPS_KEY)
 })(MapContainer)

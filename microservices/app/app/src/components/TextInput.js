@@ -27,7 +27,7 @@ const latlongStyle ={
 
 class Text extends Component  {
     state = {
-        mode: 'driving',
+        mode: '',
     }
     handleChange = name => event => {
         this.setState({ mode: event.target.value });
@@ -59,20 +59,21 @@ class Text extends Component  {
         }
         return (
             <div style={inputContainer}>
-                {texts}
+                {texts} 
                 <br />
                 <span style={{marginLeft:'4%',color: 'grey'}}>Mode:</span> 
                 <Select
-                    style={modeStyle}
+                    style={modeStyle}Driving
                     value={this.state.mode}
                     onChange={this.handleChange('mode')}
                     inputProps={{
                     id: 'age-native-simple',
                     }}
                 >
-                    <MenuItem value="driving" selected>Driving</MenuItem>
+                    <MenuItem value="driving">Driving</MenuItem>
                     <MenuItem value="walking">Walking</MenuItem>
                     <MenuItem value="transit">Transit</MenuItem>
+                    <MenuItem value="flying">Flying</MenuItem>
                 </Select>
                 
             </div>
