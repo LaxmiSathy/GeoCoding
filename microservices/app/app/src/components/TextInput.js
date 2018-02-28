@@ -51,14 +51,14 @@ class Text extends Component  {
         else {
             texts = (
                 <div>
-                <TextField id="source" label="    Source"   style={srctextStyle}  onChange={this.props.source} /> 
+                <TextField id="source" label="    Source" style={srctextStyle}  onChange={this.props.source} /> 
                 <TextField id="destination" label="     Destination"  style={desttextStyle}  onChange={this.props.destination} />
                 <br />
                 </div>
             );
         }
         return (
-            <div style={inputContainer}>
+            <div style={inputContainer} onload="initialize()">
                 {texts}
                 <br />
                 <span style={{marginLeft:'4%',color: 'grey'}}>Mode:</span> 
