@@ -14,7 +14,7 @@ class DetailsContainer extends Component {
         duration: null,
         route: [],
         mode: "",
-        status: null,
+        status: 500,
         statusMessage: null,
         value: 0
     }
@@ -23,24 +23,30 @@ class DetailsContainer extends Component {
         this.setState({
             Divpresent: !presentState
         });
-        let stat;
+        let stat=500;;
         axios.get('https://api.birdie81.hasura-app.io/directions?source='+this.state.source+'&destination='+this.state.destination+'&mode='+mode)
         .then(response  =>  {   
-            this.setState({
-                distance: response.data.ResultOutput[0].distance,
-                duration: response.data.ResultOutput[0].duration,
-                route: response.data.ResultOutput[0].route,
-                dirstring: response.data.ResultOutput[0].directionString,
-                status: 500,
-                statusMessage: response.data.ResultOutput[0].status
-            });  
-            this.props.clicked(this.state.Divpresent,this.state.source,this.state.destination,this.state.dirstring);
+            if(response.status === 200) {
+                this.setState({
+                    distance: response.data.ResultOutput[0].distance,
+                    duration: response.data.ResultOutput[0].duration,
+                    route: response.data.ResultOutput[0].route,
+                    dirstring: response.data.ResultOutput[0].directionString,
+                    statusMessage: response.data.ResultOutput[0].status
+                });  
+                this.props.clicked(this.state.Divpresent,this.state.source,this.state.destination,this.state.dirstring);
+                console.log(this.state.dirstring);
+            }
+            else {
+                this.setState({
+                    status: 404
+                })
+            }
         })
         .catch(function (error) {
-            console.log("Not the input we expected !!");
-            stat=200;
+            console.log(error)
         });
-        this.setState({status: stat})
+    
     }
     goBackHandler = () => {
         const presentState = this.state.Divpresent;
@@ -54,7 +60,6 @@ class DetailsContainer extends Component {
             distance: null,
             duration: null,
             route: [],
-            status: null,
             statusMessage: null
         });
         this.props.changeMapBack();
@@ -71,7 +76,6 @@ class DetailsContainer extends Component {
             distance: null,
             duration: null,
             route: [],
-            status: null,
             statusMessage: null
         });
     }

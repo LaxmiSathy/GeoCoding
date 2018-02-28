@@ -65,49 +65,42 @@ const nodeStyle ={
     padding: '5px'
 }
 const DirectionsDiv = (props) => {
-    if(props.status===500) {
-        if(props.statusMessage === "OK") {
-            return(
-                <div>
-                    <Paper style={PaperStyle}  elevation={4}>         
-                            <Card style={Dist} elevation={4}>
-                                <CardContent>                
-                                    <h1>Distance : <br /> </h1>
-                                    <h3 className="dat">{props.distance}</h3>
-                                </CardContent>
-                            </Card>
-                            <Card style={Time} elevation={4}>
-                                <CardContent>
-                                    <h1>Time : <br /> </h1>
-                                    <h3 className="dat">{props.duration} </h3>
-                                </CardContent>
-                            </Card>
-                            <Card style={Directions}  elevation={4}>
-                                <CardContent>
-                                    <h1> Directions : <br /> </h1>
-                                    <div style={endNodes}>
-                                        <img style={nodeStyle} src="https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1" alt="source" />
-                                        <span>  {props.source}</span> 
-                                    </div>
-                                    {props.directions}
-                                    <div style={endNodes}>
-                                        <img style={nodeStyle} src="https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1" alt="destination" />
-                                        <span>  {props.destination}</span>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                            <ButtonElement click={props.click} label="Go back" />
-                    </Paper>
-                </div>
-            );
-        }
-        else {
-            return(
-                <ErrorHand errormsg="invalid input" click={props.tryagain} />
-            );
-        }
+    if((props.statusMessage === "OK")&&(props.status===500)) {
+        return(
+            <div>
+                <Paper style={PaperStyle}  elevation={4}>         
+                        <Card style={Dist} elevation={4}>
+                            <CardContent>                
+                                <h1>Distance : <br /> </h1>
+                                <h3 className="dat">{props.distance}</h3>
+                            </CardContent>
+                        </Card>
+                        <Card style={Time} elevation={4}>
+                            <CardContent>
+                                <h1>Time : <br /> </h1>
+                                <h3 className="dat">{props.duration} </h3>
+                            </CardContent>
+                        </Card>
+                        <Card style={Directions}  elevation={4}>
+                            <CardContent>
+                                <h1> Directions : <br /> </h1>
+                                <div style={endNodes}>
+                                    <img style={nodeStyle} src="https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=A&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1" alt="source" />
+                                    <span>  {props.source}</span> 
+                                </div>
+                                {props.directions}
+                                <div style={endNodes}>
+                                    <img style={nodeStyle} src="https://mts.googleapis.com/maps/vt/icon/name=icons/spotlight/spotlight-waypoint-b.png&text=B&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1" alt="destination" />
+                                    <span>  {props.destination}</span>
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <ButtonElement click={props.click} label="Go back" />
+                </Paper>
+            </div>
+        );
     }
-    else {
+    else if(props.status===500) {
         return(
             <Card style={DetailsDiv}>
                 <CardContent style={{padding: '0px'}}>
@@ -118,6 +111,11 @@ const DirectionsDiv = (props) => {
                 </CardContent>
             </Card> 
         )
+    }
+    else {
+        return(
+            <ErrorHand errormsg="invalid input" click={props.tryagain} />
+        );
     }
 }
 

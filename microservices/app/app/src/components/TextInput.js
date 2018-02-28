@@ -58,7 +58,7 @@ class Text extends Component  {
             );
         }
         return (
-            <div style={inputContainer} onload="initialize()">
+            <div style={inputContainer}>
                 {texts}
                 <br />
                 <span style={{marginLeft:'4%',color: 'grey'}}>Mode:</span> 
