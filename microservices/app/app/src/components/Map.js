@@ -12,7 +12,9 @@ export class MapContainer extends Component {
     destination: this.props.dest,
     clicked: this.props.click
   }
+
   render() {
+  console.log(process.env.GOOGLE_MAPS_API)
     let map = (<Map 
       google={this.props.google} 
       zoom={12} 
@@ -45,5 +47,5 @@ export class MapContainer extends Component {
 }
 
 export default GoogleApiWrapper({
-  apiKey: (process.env.GOOGLE_MAPS_API)
+  apiKey: ('AIzaSyBGkDumezTWqlCXMjnog68fqh_-TrSxmVw')
 })(MapContainer)
