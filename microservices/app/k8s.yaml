@@ -23,7 +23,7 @@ items:
           imagePullPolicy: IfNotPresent
           name: app
           env:
-          - name: GOOGLE_MAPS_KEY
+          - name: UI_GMAPS_KEY
             valueFrom:
               secretKeyRef:
                 name: hasura-secrets
