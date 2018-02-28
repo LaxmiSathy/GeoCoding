@@ -57,7 +57,7 @@ app.get('/directions', function(req,res){
             routeText[routeResult].push(response.data.routes[j].legs[0].steps[i].html_instructions);
           }
           
-          var directionString = 'https://www.google.com/maps/embed/v1/directions?key='+process.env.GOOGLE_MAPS_API+'&origin='+source+'&destination='+destination;
+          var directionString = 'https://www.google.com/maps/embed/v1/directions?key='+process.env.GOOGLE_MAPS_API+'&origin='+source+'&destination='+destination+'&mode='+mode;
           var data = {'status': status, 'directionString': directionString,'distance':distance, 'duration':duration, 'durationFormat':durationFormat, 'route': routeText[routeResult]};
           //console.log(data);
           dataObj[result].push(data);
